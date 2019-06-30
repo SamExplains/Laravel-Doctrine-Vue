@@ -1,6 +1,8 @@
 <?php
 
 use LaravelDoctrine\ORM\Facades\EntityManager as EntityManager;
+use \Doctrine\ORM\EntityManagerInterface as EntityManagerInterface;
+use \DocVueTodoList\Entities\Task as Task;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
 
-  $task = new \DocVueTodoList\Entities\Task('Make an app', 'This app will showcase Doctrine in Laravel as opposed to Symphony');
+  $task = new Task('Make an app', 'This app will showcase Doctrine in Laravel as opposed to Symphony');
 
   EntityManager::persist($task);
   EntityManager::flush();
@@ -32,3 +34,16 @@ Route::get('/test', function () {
 
 
 });
+
+Route::get('/find', function (EntityManagerInterface $em) {
+
+  $task = $em->find(Task::class, 1);
+
+  return response()->json(['name' => $task->getName(), 'description' => $task->getDescription()]);
+
+
+});
+
+Route::resources([
+  'task' => 'TaskController',
+]);

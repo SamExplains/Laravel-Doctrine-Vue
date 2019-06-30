@@ -19,7 +19,9 @@
             {{--</div>--}}
         {{--</div>--}}
 
-      <example-component/>
+      <example-component></example-component>
+
+      <new-task></new-task>
 
     </div>
 </div>
