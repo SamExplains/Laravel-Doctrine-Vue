@@ -3,6 +3,11 @@
   <div class="col-8 mt-3">
 
     <div class="row">
+
+      <div class="col-12">
+        <h5>Recent tasks added</h5>
+      </div>
+
       <div v-for="task in tasks" class="col-12">
         <h6>{{ task.name }}</h6>
         <p>{{ task.description }}</p>

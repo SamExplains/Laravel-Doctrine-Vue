@@ -3,6 +3,8 @@
 use LaravelDoctrine\ORM\Facades\EntityManager as EntityManager;
 use \Doctrine\ORM\EntityManagerInterface as EntityManagerInterface;
 use \DocVueTodoList\Entities\Task as Task;
+use \DocVueTodoList\Entities\User as User;
+use DocVueTodoList as DVT;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +44,28 @@ Route::get('/find', function (EntityManagerInterface $em) {
   return response()->json(['name' => $task->getName(), 'description' => $task->getDescription()]);
 
 
+});
+
+Route::get('test-rel', function(EntityManagerInterface $em) {
+  $user = new User(
+    'Francesco',
+    'francescomalatesta@live.it'
+  );
+
+  $user->addTask(new Task(
+    'Buy milk',
+    'Because it is healthy'
+  ));
+
+  $user->addTask(new Task(
+    'Buy chocolate',
+    'Because it is good'
+  ));
+
+  $em->persist($user);
+  $em->flush();
+
+  return 'Done!';
 });
 
 Route::resources([

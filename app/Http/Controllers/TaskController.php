@@ -8,14 +8,15 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+  /**
+   * Display a listing of the resource.
+   *
+   * @param EntityManagerInterface $em
+   * @return \Illuminate\Http\Response
+   */
+    public function index(EntityManagerInterface $em)
     {
-        //
+      return view('task.index')->with('tasks', $em->getRepository(Task::class)->findAll() );
     }
 
     /**
